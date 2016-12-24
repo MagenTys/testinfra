@@ -1,2 +1,11 @@
 pytest!=3.0.2
 six>=1.4
+ntlm-auth==1.0.2
+ordereddict==1.1
+py==1.4.32
+pytest==3.0.5
+pywinrm==0.2.2
+requests==2.12.4
+requests-ntlm==1.0.0
+six==1.10.0
+xmltodict==0.10.2
