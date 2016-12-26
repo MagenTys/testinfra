@@ -65,6 +65,8 @@ class Package(Module):
     def get_module_class(cls, _backend):
         Command = _backend.get_module("Command")
         SystemInfo = _backend.get_module("SystemInfo")
+        if SystemInfo.type == "windows":
+            return WindowsPackage
         if SystemInfo.type == "freebsd":
             return FreeBSDPackage
         elif SystemInfo.type in ("openbsd", "netbsd"):
@@ -75,6 +77,26 @@ class Package(Module):
             return RpmPackage
         else:
             raise NotImplementedError
+
+
+class WindowsPackage(Package):
+
+    @property
+    def is_installed(self):
+        out = self.check_output(
+            "import-module servermanager\r\n(Get-WindowsOptionalFeature -online -FeatureName %s).State" % (self.name))
+        return out == "Enabled"
+
+    @property
+    def release(self):
+        raise NotImplementedError
+
+    @property
+    def version(self):
+        out = self.check_output("dpkg-query -f '${Status} ${Version}' -W %s"
+                                % (self.name,)).split()
+        if out[0].lower() in ["install", "hold"]:
+            return out[3]
 
 
 class DebianPackage(Package):

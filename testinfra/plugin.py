@@ -82,6 +82,15 @@ def pytest_addoption(parser):
         dest="ssh_config",
         help="SSH config file",
     )
+
+    group.addoption(
+        "--winrm-config",
+        action="store",
+        dest="winrm_config",
+        help="winrm config file",
+    )
+
+
     group.addoption(
         "--sudo",
         action="store_true",
@@ -120,6 +129,7 @@ def pytest_generate_tests(metafunc):
             hosts,
             connection=metafunc.config.option.connection,
             ssh_config=metafunc.config.option.ssh_config,
+            winrm_config=metafunc.config.option.winrm_config,
             sudo=metafunc.config.option.sudo,
             sudo_user=metafunc.config.option.sudo_user,
             ansible_inventory=metafunc.config.option.ansible_inventory,

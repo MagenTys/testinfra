@@ -84,6 +84,14 @@ class SystemInfo(InstanceModule):
             "codename": None,
             "release": None,
         }
+
+        if self._backend.NAME == "winrm":
+            sysinfo["type"] = "windows"
+            sysinfo["release"] = self.check_output("(Get-CimInstance Win32_OperatingSystem).Version").lower()
+            sysinfo["distribution"] = sysinfo["type"]
+            sysinfo["codename"] = None
+            return sysinfo
+
         sysinfo["type"] = self.check_output("uname -s").lower()
         if sysinfo["type"] == "linux":
             sysinfo.update(**self._get_linux_sysinfo())
