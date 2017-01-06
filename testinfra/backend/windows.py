@@ -1,6 +1,7 @@
 from testinfra.backend import base
 from ConfigParser import SafeConfigParser
 from winrm.protocol import Protocol
+from winrm import Session
 import base64
 
 
@@ -18,10 +19,11 @@ class WinrmBackend(base.BaseBackend):
          if self._client is None:
              parser = SafeConfigParser()
              parser.read(self.winrm_config)
-             host = parser.get('winrm', 'host')
              username = parser.get('winrm', 'username')
              password = parser.get('winrm', 'password')
              transport = parser.get('winrm', 'transport')
+             secure_transport = 'ssl' if parser.get('winrm', 'secure_transport') == "true" else transport
+             host = Session._build_url(self.hostname, secure_transport)
              self._client = Protocol(endpoint=host, username=username, password=password, transport=transport, server_cert_validation='ignore')
          return self._client
 
