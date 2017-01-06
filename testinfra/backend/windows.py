@@ -15,15 +15,16 @@ class WinrmBackend(base.BaseBackend):
 
     @property
     def client(self):
-        if self._client is None:
-            parser = SafeConfigParser()
-            parser.read(self.winrm_config)
-            host = parser.get('winrm', 'host')
-            username = parser.get('winrm', 'username')
-            password = parser.get('winrm', 'password')
-            transport = parser.get('winrm', 'transport')
-            self._client = Protocol(endpoint=host, username=username, password=password, transport=transport, server_cert_validation='ignore')
-        return self._client
+         if self._client is None:
+             parser = SafeConfigParser()
+             parser.read(self.winrm_config)
+             host = parser.get('winrm', 'host')
+             username = parser.get('winrm', 'username')
+             password = parser.get('winrm', 'password')
+             transport = parser.get('winrm', 'transport')
+             self._client = Protocol(endpoint=host, username=username, password=password, transport=transport, server_cert_validation='ignore')
+         return self._client
+
 
     def run(self, command, *args, **kwargs):
         shell_id = self.client.open_shell()

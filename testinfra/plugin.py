@@ -40,6 +40,10 @@ Supervisor = modules.Supervisor.as_fixture()
 MountPoint = modules.MountPoint.as_fixture()
 Sudo = modules.Sudo.as_fixture()
 PipPackage = modules.PipPackage.as_fixture()
+WindowsPort = modules.WindowsPort.as_fixture()
+WindowsService = modules.WindowsService.as_fixture()
+WindowsRemotePort = modules.WindowsRemotePort.as_fixture()
+WindowsFeature = modules.WindowsFeature.as_fixture()
 
 
 @pytest.fixture()

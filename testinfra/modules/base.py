@@ -13,7 +13,7 @@
 
 from __future__ import unicode_literals
 
-import pytest
+import pytest, os, inspect
 
 
 class Module(object):
@@ -72,6 +72,16 @@ class Module(object):
         f.__doc__ = cls.__doc__
         return f
 
+    @staticmethod
+    def slurp(path):
+        dir_name = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        path = dir_name + "/" + path
+        if not os.path.exists(path):
+            raise Exception("imported module support code does not exist at %s" % os.path.abspath(path))
+        fd = open(path, 'rb')
+        data = fd.read()
+        fd.close()
+        return data
 
 class InstanceModule(Module):
 

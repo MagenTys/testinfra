@@ -32,11 +32,16 @@ from testinfra.modules.supervisor import Supervisor
 from testinfra.modules.sysctl import Sysctl
 from testinfra.modules.systeminfo import SystemInfo
 from testinfra.modules.user import User
+from testinfra.modules.windows_port import WindowsPort
+from testinfra.modules.windows_service import WindowsService
+from testinfra.modules.windows_remote_port import WindowsRemotePort
+from testinfra.modules.windows_feature import WindowsFeature
 
 
 __all__ = [
     "Command", "File", "Package", "Group", "Interface",
     "Service", "SystemInfo", "User", "Salt", "PuppetResource",
     "Facter", "Sysctl", "Socket", "Ansible", "Process",
-    "Supervisor", "MountPoint", "Sudo", "PipPackage",
+    "Supervisor", "MountPoint", "Sudo", "PipPackage", "WindowsPort",
+    "WindowsService", "WindowsRemotePort", "WndowsFeature"
 ]
